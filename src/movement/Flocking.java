@@ -1,14 +1,12 @@
 package movement;
 
-import movement.Arrive;
 import processing.core.PVector;
-
 import java.util.ArrayList;
-import  object.Character;
+import  objects.Character;
 
-/**
- * Created by ujansengupta on 2/21/17.
- */
+@SuppressWarnings("WeakerAccess")
+
+
 public class Flocking
 {
     public static PVector updateCohesion(Character boid, PVector centerOfMass, float maxCohesionVelocity, int radiusOfSeparation)
@@ -16,7 +14,7 @@ public class Flocking
         return Arrive.getKinematic(boid.position, centerOfMass, maxCohesionVelocity, radiusOfSeparation).velocity;
     }
 
-    public static PVector updateSeparation(Character boid, ArrayList<Character> boidList, float maxFleeVelocity, int radiusOfSeparation)
+    public static PVector updateSeparation(Character boid, ArrayList<Character> boidList, ArrayList<Character> leaderList, float maxFleeVelocity, int radiusOfSeparation)
     {
         PVector tempSeparation = new PVector(0,0);
 
@@ -25,6 +23,13 @@ public class Flocking
             if (otherBoid != boid && PVector.sub(otherBoid.position, boid.position).mag() < radiusOfSeparation)
                 tempSeparation.add(PVector.sub(boid.position, otherBoid.position));
         }
+
+        for (Character leader : leaderList)
+        {
+            if (PVector.sub(leader.position, boid.position).mag() < radiusOfSeparation)
+                tempSeparation.add(PVector.sub(boid.position, leader.position));
+        }
+
 
         if (tempSeparation.mag() > maxFleeVelocity)
         {
@@ -57,5 +62,22 @@ public class Flocking
     {
 
         return Arrive.getKinematic(boid.position, leader.getLastCrumbPosition(), maxGoalVelocity, radiusOfSeparation).velocity;
+    }
+
+    public static Character getClosestLeader(Character boid, ArrayList<Character> leaderList)
+    {
+        float distanceFromLeader = 10000000;
+        Character leader = null;
+
+        for (Character tempLeader : leaderList)
+        {
+            if (PVector.sub(tempLeader.position, boid.position).mag() < distanceFromLeader)
+            {
+                distanceFromLeader = PVector.sub(tempLeader.position, boid.position).mag();
+                leader = tempLeader;
+            }
+        }
+
+        return leader;
     }
 }

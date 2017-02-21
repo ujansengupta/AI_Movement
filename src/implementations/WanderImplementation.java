@@ -1,16 +1,13 @@
+package implementations;
+
 import helper.AnimationControls;
 import movement.Wander;
-import object.Character;
-import object.Crumbs;
-import object.Kinematic;
+import objects.Character;
+import objects.Kinematic;
 import processing.core.PApplet;
 import processing.core.PVector;
 import steering.KinematicOutput;
 import steering.SteeringOutput;
-
-/**
- * Created by ujansengupta on 2/16/17.
- */
 
 @SuppressWarnings("WeakerAccess")
 
@@ -23,7 +20,7 @@ public class WanderImplementation implements AnimationControls
 
     float maxVelocity = 1f;
 
-    /* object.Kinematic maxRotation = 0.5f; Steering maxRotation = 2 * (float)Math.PI */
+    /* objects.Kinematic maxRotation = 0.5f; Steering maxRotation = 2 * (float)Math.PI */
 
     float maxRotation = 2 * (float)Math.PI, maxAngularAccel = 0.0005f;
 
@@ -78,7 +75,7 @@ public class WanderImplementation implements AnimationControls
             }
 
             if (steering.angular == 0)
-                targetRotation = Wander.randomBinomial() * maxRotation;       // UnComment for steering
+                targetRotation = Wander.randomBinomial() * maxRotation;       // Uncomment for steering
 
             character.move();
         }

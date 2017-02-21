@@ -1,3 +1,5 @@
+import implementations.BasicMotion;
+import implementations.FlockingImplementation;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -11,12 +13,14 @@ public class MainApp extends PApplet
 {
     int scrWidth = 1200, scrHeight = 800;
 
-    /*ArriveImplementation arrive;
+    /*implementations.ArriveImplementation arrive;
     int startCounter = 0;*/
 
-    //WanderImplementation wander;
+    //implementations.WanderImplementation wander;
 
-    FlockingImplementation flocking;
+    //FlockingImplementation flocking;
+
+    BasicMotion motion;
 
     public static void main(String[] args)
     {
@@ -30,10 +34,12 @@ public class MainApp extends PApplet
 
     public void setup()
     {
-        //arrive = new ArriveImplementation(this, scrWidth, scrHeight);
-        //wander = new WanderImplementation(this, scrWidth, scrHeight, null);
+        //arrive = new implementations.ArriveImplementation(this, scrWidth, scrHeight);
+        //wander = new implementations.WanderImplementation(this, scrWidth, scrHeight, null);
 
-        flocking = new FlockingImplementation(this, scrWidth, scrHeight, 11);
+        //flocking = new FlockingImplementation(this, scrWidth, scrHeight, 10);
+
+        motion = new BasicMotion(this, scrWidth, scrHeight);
 
         frameRate(60);
     }
@@ -41,28 +47,30 @@ public class MainApp extends PApplet
     public void draw()
     {
         background(170);
-        flocking.update();
+        //flocking.update();
         //wander.update();
         //arrive.update();
+        motion.update();
 
-        //flocking.update();
     }
 
     public void keyPressed()
     {
         if (keyCode == 32)
         {
-            switch (flocking.state)                       // arrive.character.state || wander.character.state
+            switch (motion.character.state)                       // arrive.character.state || wander.character.state
             {
                 case PAUSED:
-                    flocking.restart();
+                    //flocking.restart();
                     //wander.restart();
                     //arrive.restart();
+                    motion.restart();
                     break;
                 case MOVING:
-                    flocking.pause();
+                    //flocking.pause();
                     //wander.pause();
                     //arrive.pause();
+                    motion.pause();
                     break;
             }
 
@@ -71,12 +79,15 @@ public class MainApp extends PApplet
 
     /* Uncomment for Arrive implementation*/
 
-    /*public void mousePressed()
+    public void mousePressed()
     {
-        checkStart();
-        arrive.changeTarget(new PVector(mouseX, mouseY));
+        /*checkStart();
+        arrive.changeTarget(new PVector(mouseX, mouseY));*/
+
+        //flocking.spawnLeader(new PVector(mouseX, mouseY));
     }
 
+    /*
     public void mouseDragged()
     {
         arrive.changeTarget(new PVector(mouseX, mouseY));

@@ -1,15 +1,10 @@
-package object;
+package objects;
 
-import object.GameObject;
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;
 
 import java.util.ArrayList;
-
-/**
- * Created by ujansengupta on 2/11/17.
- */
 
 @SuppressWarnings("WeakerAccess")
 

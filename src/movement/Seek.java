@@ -3,9 +3,8 @@ package movement;
 import processing.core.PVector;
 import steering.*;
 
-/**
- * Created by ujansengupta on 2/14/17.
- */
+@SuppressWarnings("WeakerAccess")
+
 public class Seek
 {
     public static KinematicOutput getKinematic(PVector character, PVector target, float maxVelocity)

@@ -2,11 +2,8 @@ package movement;
 
 import processing.core.PVector;
 import steering.*;
-import object.Character;
+import objects.Character;
 
-/**
- * Created by ujansengupta on 2/16/17.
- */
 public class Arrive
 {
     static float timeToTargetVelocity = 10f;

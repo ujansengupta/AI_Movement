@@ -1,12 +1,11 @@
-package object;
+package objects;
 
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;
 
-/**
- * Created by ujansengupta on 2/14/17.
- */
+@SuppressWarnings("WeakerAccess")
+
 public class GameObject extends Kinematic
 {
     protected PApplet app;

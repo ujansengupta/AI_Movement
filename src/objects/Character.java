@@ -1,14 +1,11 @@
-package object;
+package objects;
 
-import object.GameObject;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
+import implementations.WanderImplementation;
 
-/**
- * Created by ujansengupta on 2/14/17.
- */
-
+@SuppressWarnings("WeakerAccess")
 
 public class Character extends GameObject
 {
@@ -17,6 +14,7 @@ public class Character extends GameObject
     PVector CHAR_COLOR = new PVector(0, 0, 0);
 
     Crumbs crumbs;
+    WanderImplementation wander;
 
     public Character(PApplet app, PVector startPos)
     {
@@ -62,6 +60,28 @@ public class Character extends GameObject
     {
         crumbs.drawCrumbs(drawTail);
     }
+
+    public void clearCrumbs()
+    {
+        crumbs.clearCrumbs();
+    }
+
+    public void enableWander(int scrWidth, int scrHeight)
+    {
+        wander = new WanderImplementation(this.app, scrWidth, scrHeight, this);
+    }
+
+    public void changeWanderVelocity(float velocity)
+    {
+        wander.changeVelocity(velocity);
+    }
+
+    public void updateWander()
+    {
+        wander.update();
+    }
+
+
 
     public PVector getLastCrumbPosition()
     {

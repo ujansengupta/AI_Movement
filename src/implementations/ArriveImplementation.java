@@ -1,14 +1,11 @@
+package implementations;
+
 import helper.AnimationControls;
 import movement.Arrive;
-import object.Character;
-import object.Crumbs;
-import object.Kinematic;
+import objects.Character;
+import objects.Kinematic;
 import processing.core.PApplet;
 import processing.core.PVector;
-
-/**
- * Created by ujansengupta on 2/14/17.
- */
 
 @SuppressWarnings("WeakerAccess")
 

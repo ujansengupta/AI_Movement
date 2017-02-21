@@ -2,11 +2,7 @@ package steering;
 
 import processing.core.PVector;
 
-/**
- * Created by ujansengupta on 2/14/17.
- */
-
-
+@SuppressWarnings("WeakerAccess")
 
 public class KinematicOutput
 {
