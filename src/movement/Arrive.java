@@ -56,7 +56,6 @@ public class Arrive
 
         output.linear = PVector.sub(direction, character.velocity);             //linear acceleration
 
-        //output.linear = new PVector(direction.x, direction.y);
         output.linear.div(timeToTargetVelocity);
 
         if (Math.abs(output.linear.mag()) > maxAcceleration)

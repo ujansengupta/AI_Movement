@@ -57,7 +57,7 @@ public class Crumbs
 
         for (PVector crumb : crumbList)
         {
-            breadCrumb = app.createShape(app.ELLIPSE, crumb.x, crumb.y, 2, 2);
+            breadCrumb = app.createShape(PApplet.ELLIPSE, crumb.x, crumb.y, 2, 2);
             breadCrumb.setFill(0);
 
             app.shape(breadCrumb);
