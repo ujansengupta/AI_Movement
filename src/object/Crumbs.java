@@ -1,3 +1,6 @@
+package object;
+
+import object.GameObject;
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;
@@ -22,11 +25,15 @@ public class Crumbs
 
     PShape breadCrumb;
 
+    PVector lastCrumb;
+
     public Crumbs(PApplet theApplet, GameObject character)
     {
         app = theApplet;
         object = character;
         prevTime = app.millis();
+
+        lastCrumb = new PVector(character.position.x, character.position.y);
     }
 
     public void drawCrumbs(boolean drawTrail)
@@ -34,10 +41,12 @@ public class Crumbs
 
         int currTime = app.millis();
 
-        if (currTime-prevTime > 100)
+        if (currTime-prevTime > 300)
         {
             crumbList.add(new PVector(object.position.x, object.position.y));
             prevTime = currTime;
+
+            lastCrumb = new PVector(crumbList.get(crumbList.size() - 1).x, crumbList.get(crumbList.size() - 1).y);
 
             if (crumbList.size() > 5 && drawTrail)
             {
@@ -59,5 +68,7 @@ public class Crumbs
     {
         crumbList.clear();
     }
+
+
 
 }

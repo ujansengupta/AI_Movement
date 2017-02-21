@@ -1,4 +1,8 @@
 import helper.AnimationControls;
+import movement.Arrive;
+import object.Character;
+import object.Crumbs;
+import object.Kinematic;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -15,12 +19,11 @@ public class ArriveImplementation implements AnimationControls
     PApplet app;
     int scrWidth, scrHeight;
 
-    float maxVelocity = 7, maxAcceleration = 1;                         // Keep acceleration low and velocity relatively high to see the effect of acceleration
+    float maxVelocity = 3, maxAcceleration = 0.5f;                         // Keep acceleration low and velocity relatively high to see the effect of acceleration
     float ROS = 3;
     float ROD = 30;
 
     Character character;
-    Crumbs crumbs;
     PVector targetPos, startPos;
 
     Type type;
@@ -34,7 +37,7 @@ public class ArriveImplementation implements AnimationControls
 
         startPos = new PVector(scrWidth/2, scrHeight/2);
         character = new Character(app, new PVector(startPos.x, startPos.y));
-        crumbs = new Crumbs(this.app, character);
+        character.initCrumbs();
         targetPos = new PVector(startPos.x, startPos.y);
 
         type = Type.STEERING;                                   //Change between STEERING and KINEMATIC for different implementations
@@ -60,7 +63,7 @@ public class ArriveImplementation implements AnimationControls
         }
 
         character.drawShape();
-        crumbs.drawCrumbs(true);                    //True for trail, False for regular crumbs
+        character.drawCrumbs(true);                    //True for trail, False for regular crumbs
     }
 
     public void changeTarget(PVector target)

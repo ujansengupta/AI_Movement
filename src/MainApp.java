@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * Created by ujansengupta on 2/14/17.
@@ -6,13 +7,12 @@ import processing.core.PApplet;
 
 public class MainApp extends PApplet
 {
-    int scrWidth = 800, scrHeight = 800;
+    int scrWidth = 1200, scrHeight = 800;
 
-    /*ArriveImplementation arrive;
-    int startCounter = 0;*/
+    ArriveImplementation arrive;
+    int startCounter = 0;
     //WanderImplementation wander;
-
-    Flocking flocking;
+    //FlockingImplementation flocking;
 
     public static void main(String[] args)
     {
@@ -26,46 +26,46 @@ public class MainApp extends PApplet
 
     public void setup()
     {
-        //arrive = new ArriveImplementation(this, scrWidth, scrHeight);
-        //wander = new WanderImplementation(this, scrWidth, scrHeight);
+        arrive = new ArriveImplementation(this, scrWidth, scrHeight);
+        //wander = new WanderImplementation(this, scrWidth, scrHeight, null);
 
-        flocking = new Flocking(this, scrWidth, scrHeight, 5);
+        //flocking = new FlockingImplementation(this, scrWidth, scrHeight, 11);
 
-        frameRate(50);
+        frameRate(60);
     }
 
     public void draw()
     {
         background(170);
-        flocking.update();
+        //flocking.update();
         //wander.update();
-        //arrive.update();
+        arrive.update();
 
-        flocking.update();
+        //flocking.update();
     }
 
     public void keyPressed()
     {
         if (keyCode == 32)
         {
-            switch (flocking.state)                       // arrive.character.state || wander.character.state
+            switch (arrive.character.state)                       // arrive.character.state || wander.character.state
             {
                 case PAUSED:
-                    flocking.restart();
+                    //flocking.restart();
                     //wander.restart();
-                    //arrive.restart();
+                    arrive.restart();
                     break;
                 case MOVING:
-                    flocking.pause();
+                    //flocking.pause();
                     //wander.pause();
-                    //arrive.pause();
+                    arrive.pause();
                     break;
             }
 
         }
     }
 
-    /*public void mousePressed()
+    public void mousePressed()
     {
         checkStart();
         arrive.changeTarget(new PVector(mouseX, mouseY));
@@ -83,6 +83,6 @@ public class MainApp extends PApplet
             arrive.start();
             startCounter++;
         }
-    }*/
+    }
 
 }

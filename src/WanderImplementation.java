@@ -1,10 +1,17 @@
 import helper.AnimationControls;
+import movement.Wander;
+import object.Character;
+import object.Crumbs;
+import object.Kinematic;
 import processing.core.PApplet;
 import processing.core.PVector;
+import steering.KinematicOutput;
+import steering.SteeringOutput;
 
 /**
  * Created by ujansengupta on 2/16/17.
  */
+
 public class WanderImplementation implements AnimationControls
 {
     public enum Type{KINEMATIC, STEERING}
@@ -12,17 +19,16 @@ public class WanderImplementation implements AnimationControls
     PApplet app;
     int scrWidth, scrHeight;
 
-    float maxVelocity = 3;
+    float maxVelocity = 1f;
 
-    /* Kinematic maxRotation = 0.5f; Steering maxRotation = 2 * (float)Math.PI */
+    /* object.Kinematic maxRotation = 0.5f; Steering maxRotation = 2 * (float)Math.PI */
 
-    float maxRotation = 2 * (float)Math.PI, maxAngularAccel = 0.01f;
+    float maxRotation = 2 * (float)Math.PI, maxAngularAccel = 0.0005f;
 
     float ROS = 1.5f;
-    float ROD = 2f;
+    float ROD = 2.5f;
 
     Character character;
-    Crumbs crumbs;
     PVector targetPos, startPos;
 
     Type type;
@@ -32,15 +38,15 @@ public class WanderImplementation implements AnimationControls
 
     float targetRotation;
 
-    public WanderImplementation(PApplet app, int scrWidth, int scrHeight)
+    public WanderImplementation(PApplet app, int scrWidth, int scrHeight, Character character)
     {
         this.app = app;
         this.scrWidth = scrWidth;
         this.scrHeight = scrHeight;
 
         startPos = new PVector(scrWidth/2, scrHeight/2);
-        character = new Character(app, new PVector(startPos.x, startPos.y));
-        crumbs = new Crumbs(this.app, character);
+        this.character = (character == null) ? new Character(app, new PVector(startPos.x, startPos.y)) : character;
+        this.character.initCrumbs();
         targetPos = new PVector(startPos.x, startPos.y);
         targetRotation = 0;
 
@@ -57,27 +63,15 @@ public class WanderImplementation implements AnimationControls
             {
                 case KINEMATIC:
                     kinematic = Wander.getKinematic(character, maxVelocity, maxRotation);
-                    if (checkBounds()) {
-                        character.rotation += Math.PI;
-                        character.velocity = new PVector(-kinematic.velocity.x, -kinematic.velocity.y);
-                    }
-                    else {
-                        character.velocity = kinematic.velocity;
-                        character.rotation = kinematic.rotation;
-                    }
+                    character.checkBounds(scrWidth, scrHeight);
+                    character.velocity = kinematic.velocity;
+                    character.rotation = kinematic.rotation;
                     break;
                 case STEERING:
                     steering = Wander.getSteeringAlign(character, targetRotation, maxRotation, maxAngularAccel, ROS, ROD);
-                    if (checkBounds()) {
-                        character.rotation += Math.PI;
-                        character.velocity = new PVector(- 2 * character.velocity.x, - 2 * character.velocity.y);
-                    }
-                    else {
-                        if (character.rotation >= Math.PI)
-                            character.rotation = 0;
-                        character.velocity = PVector.fromAngle(character.orientation).mult(maxVelocity);
-                        character.rotation += steering.angular;
-                    }
+                    character.checkBounds(scrWidth, scrHeight);
+                    character.velocity = PVector.fromAngle(character.orientation).mult(maxVelocity);
+                    character.rotation += steering.angular;
                     break;
             }
 
@@ -88,15 +82,23 @@ public class WanderImplementation implements AnimationControls
         }
 
         character.drawShape();
-        crumbs.drawCrumbs(true);                    //True for trail, False for regular crumbs
+        character.drawCrumbs(true);     //True for trail, False for regular crumbs
     }
 
-    public boolean checkBounds()
-    {
-        if (character.position.x < 0 || character.position.x > scrWidth || character.position.y < 0 || character.position.y > scrHeight)
-            return true;
 
-        return false;
+    public Character getCharacter()
+    {
+        return character;
+    }
+
+    public void changeVelocity(float velocity)
+    {
+        maxVelocity = velocity;
+    }
+
+    public void changeAngularAcc(float angularAcc)
+    {
+        maxAngularAccel = angularAcc;
     }
 
     @Override

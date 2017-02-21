@@ -1,11 +1,15 @@
+package movement;
+
 import processing.core.PVector;
+import steering.*;
+import object.Character;
 
 /**
  * Created by ujansengupta on 2/16/17.
  */
 public class Arrive
 {
-    static float timeToTargetVelocity = 5f;
+    static float timeToTargetVelocity = 10f;
     static int prevTime = 0, currTime = 0;
 
     public static KinematicOutput getKinematic(PVector character, PVector target, float maxVelocity, float ROS)

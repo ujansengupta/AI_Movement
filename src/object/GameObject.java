@@ -1,3 +1,5 @@
+package object;
+
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;
@@ -15,11 +17,10 @@ public class GameObject extends Kinematic
 
     public Kinematic.State state;
 
-    public GameObject(PApplet theApplet, PVector startPos, float diameter, PVector color)
+    public GameObject(PApplet theApplet, PVector startPos, float diameter)
     {
         app = theApplet;
         HEAD_DIA = diameter;
-        COLOR = color;
 
         float XPos = 0;
         float YPos = 0;
@@ -38,6 +39,11 @@ public class GameObject extends Kinematic
         position = startPos;
         //orientation = (float)Math.PI/2;
         velocity = new PVector();
+    }
+
+    public void setColor( PVector color)
+    {
+        COLOR = color;
     }
 
     public float getOrientation()
