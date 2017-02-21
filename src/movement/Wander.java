@@ -9,6 +9,7 @@ import object.Character;
  * Created by ujansengupta on 2/16/17.
  */
 
+@SuppressWarnings("WeakerAccess")
 
 public class Wander
 {

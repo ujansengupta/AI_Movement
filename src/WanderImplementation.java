@@ -12,6 +12,8 @@ import steering.SteeringOutput;
  * Created by ujansengupta on 2/16/17.
  */
 
+@SuppressWarnings("WeakerAccess")
+
 public class WanderImplementation implements AnimationControls
 {
     public enum Type{KINEMATIC, STEERING}
