@@ -20,7 +20,7 @@ public class ArriveImplementation implements AnimationControls
     float ROS = 3;
     float ROD = 30;
 
-    public Character character;
+    Character character;
     PVector targetPos, startPos;
 
     Type type;

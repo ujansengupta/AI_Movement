@@ -29,7 +29,7 @@ public class BasicMotion implements AnimationControls
 
     ArrayList<PVector> targetList = new ArrayList<>();
 
-    public Character character;
+    Character character;
     PVector targetPos;
 
     KinematicOutput seekOutput;
