@@ -60,7 +60,10 @@ public class GameObject extends Kinematic
         object.rotate(orientation);// - (float)Math.PI/2);
         PShape[] children = object.getChildren();
         for (PShape child : children)
+        {
+            child.setStroke(app.color(COLOR.x, COLOR.y, COLOR.z, 255));
             child.setFill(app.color(COLOR.x, COLOR.y, COLOR.z, 255));
+        }
         app.shape(object, position.x, position.y);
         object.resetMatrix();
         app.popMatrix();

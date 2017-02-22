@@ -104,4 +104,9 @@ public class BasicMotion implements AnimationControls
         app.loop();
         character.state = Kinematic.State.MOVING;
     }
+
+    @Override
+    public Kinematic.State getState() {
+        return character.state;
+    }
 }

@@ -20,7 +20,7 @@ public class ArriveImplementation implements AnimationControls
     float ROS = 3;
     float ROD = 30;
 
-    Character character;
+    public Character character;
     PVector targetPos, startPos;
 
     Type type;
@@ -39,6 +39,7 @@ public class ArriveImplementation implements AnimationControls
 
         type = Type.STEERING;                                   //Change between STEERING and KINEMATIC for different implementations
 
+        start();
     }
 
     public void update()
@@ -83,5 +84,10 @@ public class ArriveImplementation implements AnimationControls
     public void restart() {
         app.loop();
         character.state = Kinematic.State.MOVING;
+    }
+
+    @Override
+    public Kinematic.State getState() {
+        return character.state;
     }
 }

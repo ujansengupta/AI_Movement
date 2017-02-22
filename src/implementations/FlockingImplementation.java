@@ -83,7 +83,8 @@ public class FlockingImplementation implements AnimationControls
 
         spawnLeader(new PVector(randInt(0, scrWidth), randInt(0, scrHeight)));
 
-        state = Kinematic.State.MOVING;
+        start();
+
     }
 
     public void update()
@@ -160,7 +161,7 @@ public class FlockingImplementation implements AnimationControls
 
     @Override
     public void start() {
-
+        state = Kinematic.State.MOVING;
     }
 
     @Override
@@ -175,5 +176,10 @@ public class FlockingImplementation implements AnimationControls
     {
         app.loop();
         state = Kinematic.State.MOVING;
+    }
+
+    @Override
+    public Kinematic.State getState() {
+        return state;
     }
 }

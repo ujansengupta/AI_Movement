@@ -36,7 +36,7 @@ public class Crumbs
 
         int currTime = app.millis();
 
-        if (currTime-prevTime > 300)
+        if (currTime-prevTime > 100)
         {
             crumbList.add(new PVector(object.position.x, object.position.y));
             prevTime = currTime;

@@ -13,24 +13,20 @@ import steering.SteeringOutput;
 
 public class WanderImplementation implements AnimationControls
 {
-    public enum Type{KINEMATIC, STEERING}
+    public enum Mode {KINEMATIC, STEERING}
 
     PApplet app;
     int scrWidth, scrHeight;
 
     float maxVelocity = 1f;
-
-    /* objects.Kinematic maxRotation = 0.5f; Steering maxRotation = 2 * (float)Math.PI */
-
-    float maxRotation = 2 * (float)Math.PI, maxAngularAccel = 0.0005f;
-
+    float maxRotation = 2 * (float)Math.PI, maxAngularAccel = 0.0005f;  /* Kinematic maxRotation = 0.5f; Steering maxRotation = 2 * (float)Math.PI */
     float ROS = 1.5f;
     float ROD = 2.5f;
 
     Character character;
     PVector targetPos, startPos;
 
-    Type type;
+    Mode mode;
 
     KinematicOutput kinematic;
     SteeringOutput steering;
@@ -49,7 +45,7 @@ public class WanderImplementation implements AnimationControls
         targetPos = new PVector(startPos.x, startPos.y);
         targetRotation = 0;
 
-        type = Type.STEERING;                                   //Change between STEERING and KINEMATIC for different implementations
+        mode = Mode.STEERING;                                   //Change between STEERING and KINEMATIC for different implementations
 
         start();
     }
@@ -58,7 +54,7 @@ public class WanderImplementation implements AnimationControls
     {
         if (character.state == Kinematic.State.MOVING)
         {
-            switch (type)
+            switch (mode)
             {
                 case KINEMATIC:
                     kinematic = Wander.getKinematic(character, maxVelocity, maxRotation);
@@ -115,5 +111,10 @@ public class WanderImplementation implements AnimationControls
     public void restart() {
         app.loop();
         character.state = Kinematic.State.MOVING;
+    }
+
+    @Override
+    public Kinematic.State getState() {
+        return character.state;
     }
 }
